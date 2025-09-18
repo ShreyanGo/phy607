@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#Claire, Shreyan and Amelia
 
 m = 1.0  # mass 
 k = 10.0 # spring constant 
@@ -20,6 +21,7 @@ time = np.zeros(num_steps)
 position = np.zeros(num_steps)
 velocity = np.zeros(num_steps)
 total_energy = np.zeros(num_steps)
+total_energy2 = np.zeros(num_steps)
 
 # Set initial conditions
 position[0] = x0
@@ -35,26 +37,42 @@ def calculate_total_energy(x, v, m, k):
     potential_energy = 0.5 * k * x**2
     return kinetic_energy + potential_energy
 
-# Euler method simulation
+# Euler method simulation (Symplectic)
 for i in range(1, num_steps):
     time[i] = time[i-1] + dt
 
     # Calculate acceleration at current state
     a = calculate_acceleration(position[i-1])
 
-    # Updated  position and velocity using Euler method
+    # Updated  position and velocity using Euler Symplectic method
     velocity[i] = velocity[i-1] + a * dt
-    position[i] = position[i-1] + velocity[i] * dt # Note: Using v[i-1] for position update
+    position[i] = position[i-1] + velocity[i] * dt # Note: Using v[i] as it is semi implicit for position update
 
     # Calculate total energy
     total_energy[i] = calculate_total_energy(position[i], velocity[i], m, k)
 
+# Euler method simulation (Explicit)
+for i in range(1, num_steps):
+    time[i] = time[i-1] + dt
+
+    # Calculate acceleration at current state
+    a = calculate_acceleration(position[i-1])
+
+    # Updated  position and velocity using Euler Symplectic method
+    velocity[i] = velocity[i-1] + a * dt
+    position[i] = position[i-1] + velocity[i-1] * dt # Note: Using v[i-1] as it is semi implicit for position update
+
+    # Calculate total energy
+    total_energy2[i] = calculate_total_energy(position[i], velocity[i], m, k)
+
+
 # Plotting the total energy
 plt.figure(figsize=(8, 6))
-plt.plot(time, total_energy, label='Total Energy')
+plt.plot(time, total_energy, label='Total Energy Euler symplectic')
+plt.plot(time, total_energy2, label= 'Total energy Euler explicit')
 plt.xlabel('Time (s)')
 plt.ylabel('Total Energy (J)')
-plt.title('Total Energy of SHM System (Euler Method)')
+plt.title('Total Energy of SHM System (Runge Kutta method)')
 plt.grid(True)
 plt.legend()
 plt.show()
