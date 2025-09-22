@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import rungekutta as rk
 
-#Claire, Shreyan and Amelia
+# Claire O'Connor, Amelia Abruscato & Shreyan Goswami
+# Integral Methods: Simple Harmonic Motion
 
 m = 1.0  # mass 
 k = 10.0 # spring constant 
@@ -21,7 +23,6 @@ time = np.zeros(num_steps)
 position = np.zeros(num_steps)
 velocity = np.zeros(num_steps)
 total_energy = np.zeros(num_steps)
-total_energy2 = np.zeros(num_steps)
 
 # Set initial conditions
 position[0] = x0
@@ -37,42 +38,50 @@ def calculate_total_energy(x, v, m, k):
     potential_energy = 0.5 * k * x**2
     return kinetic_energy + potential_energy
 
-# Euler method simulation (Symplectic)
+# Euler method simulation
 for i in range(1, num_steps):
     time[i] = time[i-1] + dt
 
     # Calculate acceleration at current state
     a = calculate_acceleration(position[i-1])
 
-    # Updated  position and velocity using Euler Symplectic method
+    # Updated  position and velocity using Euler method
     velocity[i] = velocity[i-1] + a * dt
-    position[i] = position[i-1] + velocity[i] * dt # Note: Using v[i] as it is semi implicit for position update
+    position[i] = position[i-1] + velocity[i] * dt # Note: Using v[i-1] for position update
 
     # Calculate total energy
     total_energy[i] = calculate_total_energy(position[i], velocity[i], m, k)
 
-# Euler method simulation (Explicit)
-for i in range(1, num_steps):
-    time[i] = time[i-1] + dt
-
-    # Calculate acceleration at current state
-    a = calculate_acceleration(position[i-1])
-
-    # Updated  position and velocity using Euler Symplectic method
-    velocity[i] = velocity[i-1] + a * dt
-    position[i] = position[i-1] + velocity[i-1] * dt # Note: Using v[i-1] as it is semi implicit for position update
-
-    # Calculate total energy
-    total_energy2[i] = calculate_total_energy(position[i], velocity[i], m, k)
-
+# Plotting the total energy
+show_Euler = False
+if show_Euler==True:
+    plt.figure(figsize=(8, 6))
+    plt.plot(time, total_energy, label='Total Energy')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Total Energy (J)')
+    plt.title('Total Energy of SHM System (Euler Method)')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
+# Runge Kutta method
+y = [np.pi/3, 2]
+RK_f = []
+for t in time:
+    RK_f.append(rk.RungeKutta(y, t_max, dt, n = 2))
+total_energy = []
+print(RK_f)
+for element in RK_f:
+    total_energy.append(RK_f[3][0] + RK_f[4][0])
+#print(total_energy)
 
 # Plotting the total energy
 plt.figure(figsize=(8, 6))
-plt.plot(time[1:], total_energy[1:], label='Total Energy Euler symplectic')
-#plt.plot(time[1:], total_energy2[1:], label= 'Total energy Euler explicit')
+plt.plot(time, total_energy, label='Total Energy')
 plt.xlabel('Time (s)')
 plt.ylabel('Total Energy (J)')
-plt.title('Total Energy of SHM System (Runge Kutta method)')
+plt.title('Total Energy of SHM System (Runge Kutta Method)')
 plt.grid(True)
 plt.legend()
 plt.show()
+
