@@ -68,8 +68,8 @@ for i in range(1, num_steps):
 
 # Plotting the total energy
 plt.figure(figsize=(8, 6))
-plt.plot(time, total_energy, label='Total Energy Euler symplectic')
-plt.plot(time, total_energy2, label= 'Total energy Euler explicit')
+plt.plot(time[1:], total_energy[1:], label='Total Energy Euler symplectic')
+#plt.plot(time[1:], total_energy2[1:], label= 'Total energy Euler explicit')
 plt.xlabel('Time (s)')
 plt.ylabel('Total Energy (J)')
 plt.title('Total Energy of SHM System (Runge Kutta method)')
