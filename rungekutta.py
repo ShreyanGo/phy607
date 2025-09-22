@@ -2,24 +2,33 @@
 # Runge Kutta
 import numpy as np
 
-def k_2(yaux, t, k_1, steps):
-    for i in steps:
+def k_2(y, t, k_1, n):
+    yaux = np.zeros(n)
+    for i in range(yaux.size):
         yaux[i] = y[i]+h * k_1[i]/2
     return func(yaux, t+h/2)
 
-def y_next(y_prev, k_1, k_2):
-    return y_prev + (k_1 + k_2)/6
-
-def y(k_1, k_2, steps):
-    for step in steps:
+def y(k_1, k_2, n):
+    for i in :
         y[i] = y[i] + step*(k_1[i] + 2*k_2[i])/6
     return y
 
-def Runge(y, t, total_t, step):
-    steps = total_t / step
-    k_1 = func(yaux, t)
-    k_2 = k_2(yaux, t + step/2, k_1, steps)
-    return y(k_1, k_2, steps)
+# y = current y values
+# t = current time
+# step = step_size
+# n = number of 1st order eq (for SHM this is 2)
+def RungeKutta(y, t, step, n = 2):
+    yaux = np.zeros(n) # auxilary array
+    k1 = func(y, t)
+    k2 = func(y, t + step/2, k1, n)
+    return y(k1, k2, n)
     
-    
+def func(y, t):
+    f = []
+    f[0] = y[1]
+    f[1] = -(g/l)*np.sin(y[0])
+    return f
+
+### test
+def main_():
     
