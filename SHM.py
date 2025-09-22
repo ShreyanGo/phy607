@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import rungekutta as rk
+
 # Claire O'Connor, Amelia Abruscato & Shreyan Goswami
 # Integral Methods: Simple Harmonic Motion
 
@@ -51,11 +53,36 @@ for i in range(1, num_steps):
     total_energy[i] = calculate_total_energy(position[i], velocity[i], m, k)
 
 # Plotting the total energy
+show_Euler = False
+if show_Euler==True:
+    plt.figure(figsize=(8, 6))
+    plt.plot(time, total_energy, label='Total Energy')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Total Energy (J)')
+    plt.title('Total Energy of SHM System (Euler Method)')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
+# Runge Kutta method
+y = [np.pi/3, 2]
+RK_f = []
+for t in time:
+    RK_f.append(rk.RungeKutta(y, t_max, dt, n = 2))
+total_energy = []
+print(RK_f)
+for element in RK_f:
+    total_energy.append(RK_f[3][0] + RK_f[4][0])
+#print(total_energy)
+
+# Plotting the total energy
 plt.figure(figsize=(8, 6))
 plt.plot(time, total_energy, label='Total Energy')
 plt.xlabel('Time (s)')
 plt.ylabel('Total Energy (J)')
-plt.title('Total Energy of SHM System (Euler Method)')
+plt.title('Total Energy of SHM System (Runge Kutta Method)')
 plt.grid(True)
 plt.legend()
 plt.show()
+
+
