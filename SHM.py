@@ -5,6 +5,12 @@ import rungekutta as rk
 # Claire O'Connor, Amelia Abruscato & Shreyan Goswami
 # Integral Methods: Simple Harmonic Motion
 
+# Debugging
+msg_lvl = 5
+def msg(lvl, msg):
+    if msg_lvl < lvl:
+        print(msg)
+
 m = 1.0  # mass 
 k = 10.0 # spring constant 
 omega = np.sqrt(k / m) # angular freq
@@ -54,7 +60,7 @@ for i in range(1, num_steps):
 
 # Plotting the total energy
 show_Euler = False
-if show_Euler==True:
+if show_Euler:
     plt.figure(figsize=(8, 6))
     plt.plot(time, total_energy, label='Total Energy')
     plt.xlabel('Time (s)')
@@ -65,23 +71,18 @@ if show_Euler==True:
     plt.show()
     
 # Runge Kutta method
-y = [np.pi/3, 2]
-RK_f = []
-for t in time:
-    RK_f.append(rk.RungeKutta(y, t_max, dt, n = 2))
-total_energy = []
-print(RK_f)
-for element in RK_f:
-    total_energy.append(RK_f[3][0] + RK_f[4][0])
-#print(total_energy)
+time, pos, vel, PE, KE, total_energy = rk.RungeKutta(0.2, 0)
+total_energy = np.array(total_energy)
 
 # Plotting the total energy
-plt.figure(figsize=(8, 6))
-plt.plot(time, total_energy, label='Total Energy')
-plt.xlabel('Time (s)')
-plt.ylabel('Total Energy (J)')
-plt.title('Total Energy of SHM System (Runge Kutta Method)')
-plt.grid(True)
-plt.legend()
-plt.show()
+show_RK = True
+if show_RK:
+    plt.figure(figsize=(8, 6))
+    plt.plot(time, total_energy, label='Total Energy')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Total Energy (J)')
+    plt.title('Total Energy of SHM System (Runge Kutta Method)')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
 
