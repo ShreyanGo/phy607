@@ -59,30 +59,30 @@ for i in range(1, num_steps):
     total_energy[i] = calculate_total_energy(position[i], velocity[i], m, k)
 
 # Plotting the total energy
-show_Euler = False
+show_Euler = True
 if show_Euler:
     plt.figure(figsize=(8, 6))
-    plt.plot(time, total_energy, label='Total Energy')
+    plt.plot(time, total_energy, label='Euler')
     plt.xlabel('Time (s)')
     plt.ylabel('Total Energy (J)')
     plt.title('Total Energy of SHM System (Euler Method)')
     plt.grid(True)
-    plt.legend()
-    plt.show()
+    #plt.legend()
+    #plt.show()
     
 # Runge Kutta method
-time, pos, vel, PE, KE, total_energy = rk.RungeKutta(0.2, 0)
+time, pos, vel, PE, KE, total_energy = rk.RungeKutta(x0, v0, dt, t_max, m, k)
 total_energy = np.array(total_energy)
 
 # Plotting the total energy
 show_RK = True
 if show_RK:
-    plt.figure(figsize=(8, 6))
-    plt.plot(time, total_energy, label='Total Energy')
-    plt.xlabel('Time (s)')
-    plt.ylabel('Total Energy (J)')
-    plt.title('Total Energy of SHM System (Runge Kutta Method)')
-    plt.grid(True)
+    #plt.figure(figsize=(8, 6))
+    plt.plot(time, total_energy, label='Runge Kutta')
+    #plt.xlabel('Time (s)')
+    #plt.ylabel('Total Energy (J)')
+    #plt.title('Total Energy of SHM System (Runge Kutta Method)')
+    #plt.grid(True)
     plt.legend()
     plt.show()
 
