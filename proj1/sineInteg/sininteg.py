@@ -1,3 +1,4 @@
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import integrate
@@ -6,7 +7,7 @@ from scipy import integrate
 a = 0.0                          # lower bound
 b = np.pi                        # upper bound
 n = 1000                         # number of intervals
-analytical_result = np.pi / 2    # exact value of  integrating [0,π] sin²(x) dx
+analytical_result = np.pi / 2    # exact value of integrating [0,π] sin²(x) dx
 
 def sin_squared(x):
     """Function to integrate: sin²(x)"""
@@ -48,7 +49,7 @@ def solve_integration():
     trapezoidal_result = trapezoidal_rule(sin_squared, a, b, n)
     simpson_result = simpsons_rule(sin_squared, a, b, n)
     
-    # SciPy/NumPy methods, did not use any of it as I know the final value
+    # SciPy/NumPy methods
     x_vals = np.linspace(a, b, n + 1)
     y_vals = sin_squared(x_vals)
     
@@ -65,10 +66,10 @@ def solve_integration():
     return (riemann_result, trapezoidal_result, simpson_result, numpy_trapz, scipy_quad,
             riemann_error, trapezoidal_error, simpson_error, numpy_error, quad_error)
 
-def create_plot(riemann_result, trapezoidal_result, simpson_result):
-    """Create simple visualization"""
+def create_plots(riemann_result, trapezoidal_result, simpson_result):
+    """Create visualization plots"""
     
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(15, 6))
     
     # Plot 1: Function
     plt.subplot(1, 3, 1)
@@ -91,12 +92,11 @@ def create_plot(riemann_result, trapezoidal_result, simpson_result):
     plt.yscale('log')
     plt.ylabel('Absolute Error')
     plt.title(f'Error Comparison (n={n})')
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=30)
     
     for bar, error in zip(bars, errors):
         plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(), 
-                f'{error:.1e}', ha='center', va='bottom', fontsize=9)
-  
+                f'{error:.1e}', ha='center', va='bottom', fontsize=8)
     
     # Plot 3: Results table
     plt.subplot(1, 3, 3)
@@ -107,43 +107,45 @@ def create_plot(riemann_result, trapezoidal_result, simpson_result):
         ['Riemann', f'{riemann_result:.6f}', f'{abs(riemann_result - analytical_result):.2e}'],
         ['Trapezoidal', f'{trapezoidal_result:.6f}', f'{abs(trapezoidal_result - analytical_result):.2e}'],
         ["Simpson's", f'{simpson_result:.6f}', f'{abs(simpson_result - analytical_result):.2e}'],
-        ['Analytical', f'{analytical_result:.10f}', '0.00e+00']
+        ['Analytical', f'{analytical_result:.6f}', '0.00e+00']
     ]
     
     table = plt.table(cellText=table_data[1:], colLabels=table_data[0],
                      cellLoc='center', loc='center')
     table.auto_set_font_size(False)
-    table.set_fontsize(10)
-    table.scale(1, 2)
+    table.set_fontsize(9)
+    table.scale(1, 1.5)
     
-    plt.suptitle(f'Numerical Integration: sin²(x) from 0 to π\nAnalytical Result = π/2 = {analytical_result:.10f}')
-    plt.tight_layout()
+    plt.suptitle(f'Numerical Integration: sin²(x) from 0 to π (Analytical = π/2 = {analytical_result:.6f})', 
+                 fontsize=14, y=0.98)
+    plt.subplots_adjust(top=0.85, bottom=0.1, left=0.08, right=0.95, wspace=0.3)
     plt.show()
 
 def print_results(riemann_result, trapezoidal_result, simpson_result, numpy_trapz, scipy_quad,
                  riemann_error, trapezoidal_error, simpson_error, numpy_error, quad_error):
-    """Print results"""
+    """Print numerical results summary"""
     
-    print(f"Numerical Integration: sin²(x) from 0 to π")
-    print(f"=" * 50)
-    print(f"Analytical result: π/2 = {analytical_result:.10f}")
-    print(f"Number of intervals: {n}")
-    print(f"=" * 50)
+    print(f"Final integration results:")
+    print(f"  Riemann sum: {riemann_result:.6f}")
+    print(f"  Trapezoidal rule: {trapezoidal_result:.6f}")
+    print(f"  Simpson's rule: {simpson_result:.6f}")
+    print(f"  NumPy trapz: {numpy_trapz:.6f}")
+    print(f"  SciPy quad: {scipy_quad:.6f}")
+    print(f"  Analytical: {analytical_result:.10f}")
 
-def main():
-    """Run integration analysis"""
-    
-    # Solve integration
-    results = solve_integration()
-    (riemann_result, trapezoidal_result, simpson_result, numpy_trapz, scipy_quad,
-     riemann_error, trapezoidal_error, simpson_error, numpy_error, quad_error) = results
-    
-    # Print results
-    print_results(riemann_result, trapezoidal_result, simpson_result, numpy_trapz, scipy_quad,
-                 riemann_error, trapezoidal_error, simpson_error, numpy_error, quad_error)
-    
-    # Create plot
-    create_plot(riemann_result, trapezoidal_result, simpson_result)
+    print(f"\nError analysis:")
+    print(f"  Riemann - Error: {riemann_error:.2e}")
+    print(f"  Trapezoidal - Error: {trapezoidal_error:.2e}")
+    print(f"  Simpson's - Error: {simpson_error:.2e}")
+    print(f"  NumPy trapz - Error: {numpy_error:.2e}")
+    print(f"  SciPy quad - Error: {quad_error:.2e}")
 
-if __name__ == "__main__":
-    main()
+    best_method = min([
+        ("Riemann", riemann_error),
+        ("Trapezoidal", trapezoidal_error),
+        ("Simpson's", simpson_error),
+        ("NumPy trapz", numpy_error),
+        ("SciPy quad", quad_error)
+    ], key=lambda x: x[1])
+
+    print(f"\nMost accurate method: {best_method[0]} with error {best_method[1]:.2e}")

@@ -187,7 +187,7 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    plt.suptitle('Car Suspension System Analysis\n' +, 
+    plt.suptitle('Car Suspension System Analysis\n',
                  fontsize=14)
     plt.tight_layout()
     plt.show()

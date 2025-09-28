@@ -13,17 +13,17 @@ def main():
      disp_scipy, vel_scipy, acc_scipy,
      error_euler, error_rk4) = results
     
-    # Create plots
-    create_plots(time, disp_euler, vel_euler, acc_euler, 
-                disp_rk4, vel_rk4, acc_rk4,
-                disp_scipy, vel_scipy, acc_scipy,
-                error_euler, error_rk4)
-    
-    # Print numerical results
+    # numerical results
     print_results(time, disp_euler, vel_euler, acc_euler, 
                  disp_rk4, vel_rk4, acc_rk4,
                  disp_scipy, vel_scipy, acc_scipy,
                  error_euler, error_rk4)
+    
+    # plots
+    create_plots(time, disp_euler, vel_euler, acc_euler, 
+                disp_rk4, vel_rk4, acc_rk4,
+                disp_scipy, vel_scipy, acc_scipy,
+                error_euler, error_rk4)
 
 if __name__ == "__main__":
     main()

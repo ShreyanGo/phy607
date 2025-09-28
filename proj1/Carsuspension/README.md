@@ -7,8 +7,8 @@ pip install numpy scipy matplotlib
 ```
 
 ## Files
-- `main.py` - Main script to run the analysis
-- `suspension_solver.py` - ODE solver functions and plotting
+`main.py` - Main script to run the analysis
+`carsus.py` - ODE solver functions and plotting
 
 ## Usage
 ```bash
@@ -16,8 +16,8 @@ python main.py
 ```
 
 ## Output
-- 4 plots showing displacement, velocity, acceleration vs time, plus error analysis
-- Console output with final displacement values and error statistics
+4 plots showing displacement, velocity, acceleration vs time, plus error analysis
+Console output with final displacement values and error statistics
 
 ## Description
 The program solves the 3rd order car suspension ODE:
