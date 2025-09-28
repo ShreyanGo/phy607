@@ -187,36 +187,27 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    plt.suptitle('Car Suspension System Analysis\n' + 
-                 f'm={m} kg, c₂={c2} kg·s, c₁={c1} kg/s, c₀={c0} kg/s²', 
+    plt.suptitle('Car Suspension System Analysis\n' +, 
                  fontsize=14)
     plt.tight_layout()
     plt.show()
 
-def main():
-    """Run car suspension ODE analysis"""
-    
-    # Solve the ODE using all methods
-    results = solve_suspension()
-    
-    # Unpack results
-    (time, 
-     disp_euler, vel_euler, acc_euler,
-     disp_rk4, vel_rk4, acc_rk4,
-     disp_scipy, vel_scipy, acc_scipy,
-     error_euler, error_rk4) = results
-    
-    # Create plots
-    create_plots(time, disp_euler, vel_euler, acc_euler, 
-                disp_rk4, vel_rk4, acc_rk4,
-                disp_scipy, vel_scipy, acc_scipy,
-                error_euler, error_rk4)
-    
-    # Print numerical results
-    print_results(time, disp_euler, vel_euler, acc_euler, 
+def print_results(time, disp_euler, vel_euler, acc_euler, 
                  disp_rk4, vel_rk4, acc_rk4,
                  disp_scipy, vel_scipy, acc_scipy,
-                 error_euler, error_rk4)
+                 error_euler, error_rk4):
+    """Print numerical results summary"""
+    
+    print("Final displacement:")
+    print(f"  Euler method: {disp_euler[-1]:.6f} m")
+    print(f"  RK4 method: {disp_rk4[-1]:.6f} m")
+    print(f"  SciPy: {disp_scipy[-1]:.6f} m")
 
-if __name__ == "__main__":
-    main()
+    print(f"\nError analysis:")
+    print(f"  Euler - Max error: {np.max(error_euler):.2e} m")
+    print(f"  Euler - Mean error: {np.mean(error_euler):.2e} m")
+    print(f"  RK4 - Max error: {np.max(error_rk4):.2e} m")
+    print(f"  RK4 - Mean error: {np.mean(error_rk4):.2e} m")
+
+    accuracy_ratio = np.max(error_euler) / np.max(error_rk4)
+    print(f"\nRK4 is {accuracy_ratio:.1f}x more accurate than Euler for this step size")

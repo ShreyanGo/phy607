@@ -6,7 +6,7 @@ from scipy import integrate
 a = 0.0                          # lower bound
 b = np.pi                        # upper bound
 n = 1000                         # number of intervals
-analytical_result = np.pi / 2    # exact value of ∫[0,π] sin²(x) dx
+analytical_result = np.pi / 2    # exact value of  integrating [0,π] sin²(x) dx
 
 def sin_squared(x):
     """Function to integrate: sin²(x)"""
@@ -48,7 +48,7 @@ def solve_integration():
     trapezoidal_result = trapezoidal_rule(sin_squared, a, b, n)
     simpson_result = simpsons_rule(sin_squared, a, b, n)
     
-    # SciPy/NumPy methods
+    # SciPy/NumPy methods, did not use any of it as I know the final value
     x_vals = np.linspace(a, b, n + 1)
     y_vals = sin_squared(x_vals)
     
