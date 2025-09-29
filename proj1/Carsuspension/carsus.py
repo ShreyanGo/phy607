@@ -1,4 +1,3 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
@@ -149,10 +148,10 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.plot(time, disp_euler, 'r--', label='Euler Method', linewidth=2)
     plt.plot(time, disp_rk4, 'b-', label='4th Order RK', linewidth=2)
     plt.plot(time, disp_scipy, 'g-.', label='SciPy solve_ivp', linewidth=2)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Displacement (m)')
-    plt.title('Displacement vs Time')
-    plt.legend()
+    plt.xlabel('Time (s)', fontsize=14)
+    plt.ylabel('Displacement (m)', fontsize=14)
+    plt.title('Displacement vs Time', fontsize= 14)
+    plt.legend(fontsize=14, labelspacing=1.5, handlelength=2.5)
     plt.grid(True, alpha=0.3)
 
     # Plot 2: Velocity
@@ -160,9 +159,9 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.plot(time, vel_euler, 'r--', label='Euler Method', linewidth=2)
     plt.plot(time, vel_rk4, 'b-', label='4th Order RK', linewidth=2)
     plt.plot(time, vel_scipy, 'g-.', label='SciPy solve_ivp', linewidth=2)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Velocity (m/s)')
-    plt.title('Velocity vs Time')
+    plt.xlabel('Time (s)', fontsize=14)
+    plt.ylabel('Velocity (m/s)', fontsize=14)
+    plt.title('Velocity vs Time', fontsize=14)
     plt.legend()
     plt.grid(True, alpha=0.3)
 
@@ -171,9 +170,9 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.plot(time, acc_euler, 'r--', label='Euler Method', linewidth=2)
     plt.plot(time, acc_rk4, 'b-', label='4th Order RK', linewidth=2)
     plt.plot(time, acc_scipy, 'g-.', label='SciPy solve_ivp', linewidth=2)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Acceleration (m/s²)')
-    plt.title('Acceleration vs Time')
+    plt.xlabel('Time (s)', fontsize=14)
+    plt.ylabel('Acceleration (m/s²)', fontsize=14)
+    plt.title('Acceleration vs Time', fontsize=14)
     plt.legend()
     plt.grid(True, alpha=0.3)
 
@@ -181,13 +180,14 @@ def create_plots(time, disp_euler, vel_euler, acc_euler,
     plt.subplot(2, 2, 4)
     plt.semilogy(time, error_euler, 'r-', label='Euler Error', linewidth=2)
     plt.semilogy(time, error_rk4, 'b-', label='RK4 Error', linewidth=2)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Absolute Error (m)')
-    plt.title('Error Analysis')
-    plt.legend()
+    plt.xlabel('Time (s)',fontsize=14)
+    plt.ylabel('Absolute Error (m)', fontsize=14)
+    plt.title('Error Analysis', fontsize=14)
+    plt.legend(fontsize=14)
     plt.grid(True, alpha=0.3)
 
-    plt.suptitle('Car Suspension System Analysis\n',
+    plt.suptitle('Car Suspension System Analysis\n' + 
+                 f'm={m} kg, c₂={c2} kg·s, c₁={c1} kg/s, c₀={c0} kg/s²', 
                  fontsize=14)
     plt.tight_layout()
     plt.show()

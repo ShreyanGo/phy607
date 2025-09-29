@@ -1,4 +1,3 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import integrate
@@ -72,7 +71,7 @@ def create_plots(riemann_result, trapezoidal_result, simpson_result):
     plt.figure(figsize=(15, 6))
     
     # Plot 1: Function
-    plt.subplot(1, 3, 1)
+    #plt.subplot(1, 3, 1)
     x_plot = np.linspace(a, b, 1000)
     y_plot = sin_squared(x_plot)
     plt.plot(x_plot, y_plot, 'b-', linewidth=2)
@@ -81,9 +80,9 @@ def create_plots(riemann_result, trapezoidal_result, simpson_result):
     plt.ylabel('sin²(x)')
     plt.title('Function: sin²(x)')
     plt.grid(True)
-    
+    plt.show()
     # Plot 2: Method comparison
-    plt.subplot(1, 3, 2)
+    #plt.subplot(1, 3, 2)
     methods = ['Riemann', 'Trapezoidal', "Simpson's"]
     results = [riemann_result, trapezoidal_result, simpson_result]
     errors = [abs(r - analytical_result) for r in results]
@@ -97,9 +96,9 @@ def create_plots(riemann_result, trapezoidal_result, simpson_result):
     for bar, error in zip(bars, errors):
         plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(), 
                 f'{error:.1e}', ha='center', va='bottom', fontsize=8)
-    
+    plt.show()
     # Plot 3: Results table
-    plt.subplot(1, 3, 3)
+    #plt.subplot(1, 3, 3)
     plt.axis('off')
     
     table_data = [
@@ -116,9 +115,9 @@ def create_plots(riemann_result, trapezoidal_result, simpson_result):
     table.set_fontsize(9)
     table.scale(1, 1.5)
     
-    plt.suptitle(f'Numerical Integration: sin²(x) from 0 to π (Analytical = π/2 = {analytical_result:.6f})', 
-                 fontsize=14, y=0.98)
-    plt.subplots_adjust(top=0.85, bottom=0.1, left=0.08, right=0.95, wspace=0.3)
+    #plt.suptitle(f'Numerical Integration: sin²(x) from 0 to π (Analytical = π/2 = {analytical_result:.6f})', 
+    #            fontsize=14, y=0.98)
+    #plt.subplots_adjust(top=0.85, bottom=0.1, left=0.08, right=0.95, wspace=0.3)
     plt.show()
 
 def print_results(riemann_result, trapezoidal_result, simpson_result, numpy_trapz, scipy_quad,
