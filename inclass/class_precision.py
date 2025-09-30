@@ -1,0 +1,77 @@
+class PrecisionFloat:    #Srijana
+    def __init__(self, value):
+        if isinstance(value, str) and '.' in value:
+            # Convert decimal string to fraction
+            parts = value.split('.')
+            integer_part = int(parts[0]) if parts[0] else 0
+            decimal_part = parts[1]
+            self.numerator = integer_part * (10 ** len(decimal_part)) + int(decimal_part)
+            self.denominator = 10 ** len(decimal_part)
+        elif isinstance(value, float):
+            # Convert float to fraction by finding decimal representation
+            str_val = f"{value:.15f}".rstrip('0')
+            if '.' in str_val:
+                self.__init__(str_val)
+            else:
+                self.numerator = int(value)
+                self.denominator = 1
+        else:
+            self.numerator = int(value)
+            self.denominator = 1
+        self._simplify()
+    
+    def _gcd(self, a, b):  #Amal
+        while b: a, b = b, a % b
+        return a
+    
+    def _simplify(self):  #Amal
+        gcd = self._gcd(abs(self.numerator), abs(self.denominator))
+        self.numerator //= gcd
+        self.denominator //= gcd
+        if self.denominator < 0:
+            self.numerator, self.denominator = -self.numerator, -self.denominator
+    
+    def __str__(self): #Amal
+        if self.denominator == 1:
+            return str(self.numerator)
+        return f"{self.numerator / self.denominator:.15g}"
+    
+    def add(self, other): #Shreyan
+        if not isinstance(other, PrecisionFloat):
+            other = PrecisionFloat(other)
+        num = self.numerator * other.denominator + other.numerator * self.denominator
+        den = self.denominator * other.denominator
+        result = PrecisionFloat(0)
+        result.numerator, result.denominator = num, den
+        result._simplify()
+        return result
+    
+    def subtract(self, other):# Sheryan
+        if not isinstance(other, PrecisionFloat):
+            other = PrecisionFloat(other)
+        num = self.numerator * other.denominator - other.numerator * self.denominator
+        den = self.denominator * other.denominator
+        result = PrecisionFloat(0)
+        result.numerator, result.denominator = num, den
+        result._simplify()
+        return result
+    
+    def multiply(self, other): #Hani
+        if not isinstance(other, PrecisionFloat):
+            other = PrecisionFloat(other)
+        result = PrecisionFloat(0)
+        result.numerator = self.numerator * other.numerator
+        result.denominator = self.denominator * other.denominator
+        result._simplify()
+        return result
+    
+    def divide(self, other):# Hani
+        if not isinstance(other, PrecisionFloat):
+            other = PrecisionFloat(other)
+        if other.numerator == 0:
+            raise ZeroDivisionError("Division by zero")
+        result = PrecisionFloat(0)
+        result.numerator = self.numerator * other.denominator
+        result.denominator = self.denominator * other.numerator
+        result._simplify()
+        return result
