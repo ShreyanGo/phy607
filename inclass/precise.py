@@ -1,4 +1,4 @@
-class PrecisionFloat:
+class PrecisionFloat: #AMAL
     def __init__(self, value):
         if isinstance(value, str) and '.' in value:
             # Convert decimal string to fraction
@@ -20,11 +20,11 @@ class PrecisionFloat:
             self.denominator = 1
         self._simplify()
     
-    def _gcd(self, a, b):
+    def _gcd(self, a, b): #AMAL
         while b: a, b = b, a % b
         return a
     
-    def _simplify(self):
+    def _simplify(self): #aMAL
         gcd = self._gcd(abs(self.numerator), abs(self.denominator))
         self.numerator //= gcd
         self.denominator //= gcd
@@ -76,12 +76,12 @@ class PrecisionFloat:
         result._simplify()
         return result
 
-    def __lt__(self, other):
+    def __lt__(self, other): #aAMAl
         if not isinstance(other, PrecisionFloat):
             other = PrecisionFloat(other)
         return self.numerator * other.denominator < other.numerator * self.denominator
     
-    def __le__(self, other):
+    def __le__(self, other): #aAMaL
         return self.__lt__(other) or self.__eq__(other)
     
     def __eq__(self, other):
@@ -93,8 +93,8 @@ class PrecisionFloat:
         return not self.__le__(other)
 
 
-# Sorting Algorithms
-def bubble_sort(arr):
+# Sorting Algorithms 
+def bubble_sort(arr):#aMAL 
     """Bubble sort implementation for PrecisionFloat"""
     n = len(arr)
     arr_copy = arr[:]
@@ -160,7 +160,7 @@ if __name__ == "__main__":
         
         print(f"Size {size:4d}: Bubble={bubble_time:.6f}s, Merge={merge_time:.6f}s")
     
-    # Plot performance comparison
+    # Plot performance comparison #AMAL
     plt.figure(figsize=(10, 6))
     plt.plot(sizes, bubble_times, marker='o', linewidth=2, markersize=8, label='Bubble Sort O(nÂ²)')
     plt.plot(sizes, merge_times, marker='s', linewidth=2, markersize=8, label='Merge Sort O(n log n)')
