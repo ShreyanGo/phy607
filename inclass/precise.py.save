@@ -1,3 +1,5 @@
+ssh -T git@github.com
+ssh -T git@github.com
 class PrecisionFloat: #AMAL
     def __init__(self, value):
         if isinstance(value, str) and '.' in value:
@@ -46,7 +48,7 @@ class PrecisionFloat: #AMAL
         result._simplify()
         return result
     
-    def subtract(self, other): #srijana
+    def subtract(self, other):
         if not isinstance(other, PrecisionFloat):
             other = PrecisionFloat(other)
         num = self.numerator * other.denominator - other.numerator * self.denominator
@@ -65,7 +67,7 @@ class PrecisionFloat: #AMAL
         result._simplify()
         return result
     
-    def divide(self, other): #srijana
+    def divide(self, other):
         if not isinstance(other, PrecisionFloat):
             other = PrecisionFloat(other)
         if other.numerator == 0:
@@ -172,7 +174,7 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.show()
     
-    # Verify correctness with small example #srijana
+    # Verify correctness with small example
     print("\n" + "=" * 60)
     print("Correctness Test:")
     test = [PrecisionFloat("3.5"), PrecisionFloat("1.2"), PrecisionFloat("2.8"), 
