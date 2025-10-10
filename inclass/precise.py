@@ -31,12 +31,12 @@ class PrecisionFloat: #AMAL
         if self.denominator < 0:
             self.numerator, self.denominator = -self.numerator, -self.denominator
     
-    def __str__(self):
+    def __str__(self): #Hani
         if self.denominator == 1:
             return str(self.numerator)
         return f"{self.numerator / self.denominator:.15g}"
     
-    def add(self, other):
+    def add(self, other): #Hani
         if not isinstance(other, PrecisionFloat):
             other = PrecisionFloat(other)
         num = self.numerator * other.denominator + other.numerator * self.denominator
@@ -56,7 +56,7 @@ class PrecisionFloat: #AMAL
         result._simplify()
         return result
     
-    def multiply(self, other):
+    def multiply(self, other): #Hani
         if not isinstance(other, PrecisionFloat):
             other = PrecisionFloat(other)
         result = PrecisionFloat(0)
@@ -105,7 +105,7 @@ def bubble_sort(arr):#aMAL
     return arr_copy
 
 
-def merge_sort(arr):
+def merge_sort(arr): #Hani
     """Merge sort implementation for PrecisionFloat"""
     if len(arr) <= 1:
         return arr
